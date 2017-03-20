@@ -22,6 +22,7 @@ namespace Chroma
       static void init();
     public:
       static const LatticeInteger& alpha(const int dim);
+      static void clearCallback();
     };
 
 
@@ -38,6 +39,7 @@ namespace Chroma
       static void init();
     public:
       static const LatticeInteger& beta(const int dim);
+      static void clearCallback();
     };
 
     static const LatticeInteger& alpha(const int dim) {

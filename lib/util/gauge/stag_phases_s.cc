@@ -5,6 +5,8 @@
 #include "chromabase.h"
 #include "util/gauge/stag_phases_s.h"
 
+#include <cstdlib>
+
 namespace Chroma 
 {
 
@@ -17,6 +19,18 @@ namespace Chroma
     multi1d<LatticeInteger> betaClass::phases;
     bool alphaClass::initP = false;
     bool betaClass::initP = false;
+
+    void alphaClass::clearCallback()
+    {
+        if (phases.size()!=0)
+            phases.resize(0);
+    }
+
+    void betaClass::clearCallback()
+    {
+        if (phases.size()!=0)
+            phases.resize(0);
+    }
 
     // Init function for staggered K-S phases
     void alphaClass::init()
@@ -60,6 +74,8 @@ namespace Chroma
 	break;
       }
 
+      std::atexit(alphaClass::clearCallback);
+
       END_CODE();
     }
   
@@ -90,6 +106,8 @@ namespace Chroma
 	QDP_error_exit("Staggered phases  only supported for Nd=4 just now: Nd = %d\n", Nd);
 	break;
       }
+
+      std::atexit(betaClass::clearCallback);
     
       END_CODE();
     }
